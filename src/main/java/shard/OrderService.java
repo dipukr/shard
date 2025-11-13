@@ -48,8 +48,8 @@ public class OrderService {
 			EntityManager em = shardManager.getEmfForShard(s).createEntityManager();
 			try {
 				OrderDAO orderDAO = new OrderDAO(em);
-				Order order = orderDAO.findById(orderId);
-				return Optional.ofNullable(order);
+				Optional<Order> opt = orderDAO.findById(orderId);
+				if (opt.isPresent()) return opt;
 			} finally {
 				em.close();
 			}

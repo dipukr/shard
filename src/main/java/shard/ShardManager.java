@@ -8,14 +8,14 @@ import jakarta.persistence.Persistence;
 
 public class ShardManager {
 
+	private Map<Integer, EntityManagerFactory> emfs = new HashMap<>();
 	public static final int SHARD_COUNT = 4;
-	private Map<Integer, EntityManagerFactory> emfMap = new HashMap<>();
 
 	public ShardManager() {
-		emfMap.put(0, Persistence.createEntityManagerFactory("shard0"));
-		emfMap.put(1, Persistence.createEntityManagerFactory("shard1"));
-		emfMap.put(2, Persistence.createEntityManagerFactory("shard2"));
-		emfMap.put(3, Persistence.createEntityManagerFactory("shard3"));
+		emfs.put(0, Persistence.createEntityManagerFactory("shard0"));
+		emfs.put(1, Persistence.createEntityManagerFactory("shard1"));
+		emfs.put(2, Persistence.createEntityManagerFactory("shard2"));
+		emfs.put(3, Persistence.createEntityManagerFactory("shard3"));
 	}
 
 	public int getShardForCustomer(Long customerId) {
@@ -25,13 +25,13 @@ public class ShardManager {
 	}
 
 	public EntityManagerFactory getEmfForShard(int shardId) {
-		EntityManagerFactory emf = emfMap.get(shardId);
+		EntityManagerFactory emf =	emfs.get(shardId);
 		if (emf == null)
 			throw new IllegalArgumentException("No EMF for shard " + shardId);
 		return emf;
 	}
 
 	public void close() {
-		emfMap.values().forEach(EntityManagerFactory::close);
+		emfs.values().forEach(EntityManagerFactory::close);
 	}
 }

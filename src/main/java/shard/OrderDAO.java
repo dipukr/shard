@@ -1,6 +1,7 @@
 package shard;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import jakarta.persistence.EntityManager;
@@ -20,8 +21,9 @@ public class OrderDAO {
 		em.getTransaction().commit();
 	}
 
-	public Order findById(UUID orderId) {
-		return em.find(Order.class, orderId);
+	public Optional<Order> findById(UUID orderId) {
+		Order order = em.find(Order.class, orderId);
+		return Optional.ofNullable(order);
 	}
 
 	public List<Order> findByCustomerId(Long customerId) {
