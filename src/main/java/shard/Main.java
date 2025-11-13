@@ -3,7 +3,7 @@ package shard;
 import java.time.LocalDateTime;
 
 public class Main {
-	public static void main(String[] args) throws Exception {
+	public void main(String[] args) throws Exception {
 		ShardManager shardManager = new ShardManager();
 		OrderService orderService = new OrderService(shardManager);
 
