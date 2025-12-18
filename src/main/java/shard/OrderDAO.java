@@ -27,8 +27,8 @@ public class OrderDAO {
 	}
 
 	public List<Order> findByCustomerId(Long customerId) {
-		TypedQuery<Order> q = 
-				em.createQuery("SELECT o FROM Order o WHERE o.customerId = :cid", Order.class);
+		TypedQuery<Order> q = em.createQuery("SELECT o FROM Order o " +
+			"WHERE o.customerId = :customerId", Order.class);
 		q.setParameter("cid", customerId);
 		return q.getResultList();
 	}
