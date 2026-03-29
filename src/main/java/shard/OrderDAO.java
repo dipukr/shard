@@ -34,7 +34,7 @@ public class OrderDAO {
 	}
 
 	public List<Order> findAll() {
-		TypedQuery<Order> q = em.createQuery("SELECT o FROM Order o", Order.class);
-		return q.getResultList();
+		TypedQuery<Order> qry = em.createQuery("SELECT o FROM Order o", Order.class);
+		return qry.getResultList();
 	}
 }
